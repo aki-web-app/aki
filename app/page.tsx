@@ -1,13 +1,18 @@
+cat > app/page.tsx <<'EOF'
+import Chat from "@/components/chat/Chat";
+
 export default function Home() {
   return (
-    <main className="min-h-dvh grid place-items-center p-6">
-      <div className="max-w-md text-center space-y-3">
-        <div className="text-4xl">🐱‍👤 Aki</div>
-        <h1 className="text-2xl font-semibold">Leben mit Paranoia – Hello Aki</h1>
-        <p className="text-muted-foreground">
-          Liebevoller, zugewandter Begleiter. Bald mit Krisenchat.
-        </p>
+    <main className="min-h-dvh p-6">
+      <div className="mx-auto max-w-4xl">
+        <header className="text-center mb-6">
+          <div className="text-6xl">🐈‍⬛</div>
+          <h1 className="text-3xl font-semibold">Leben mit Paranoia — Aki</h1>
+        </header>
+
+        <Chat />
       </div>
     </main>
   );
 }
+EOF
