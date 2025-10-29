@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    container_name: aki_web
+    env_file: .env
+    restart: unless-stopped
+    networks: [aki_net]
+
+  caddy:
+    image: caddy:2
+    container_name: aki_caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+    restart: unless-stopped
+    networks: [aki_net]
+
+networks:
+  aki_net:
+
+volumes:
+  caddy_data:
+  caddy_config:
