@@ -10,7 +10,7 @@ function getClient() {
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
-  const userText: string = body?.message ?? "";
+  const message = body?.message ?? "";
 
   const client = getClient();
   if (!client) {
@@ -24,16 +24,20 @@ export async function POST(req: Request) {
 Du sprichst empathisch, klar, und rätst bei akuter Gefahr immer,
 umgehend lokale Hilfen zu kontaktieren. Keine medizinische Diagnose.`;
 
-  const resp = await client.responses.create({
+  const stream = await client.responses.stream({
     model: process.env.OPENAI_MODEL ?? "gpt-4.1-mini",
     input: [
       { role: "system", content: system },
-      { role: "user", content: userText || "Sag Hallo." },
+      { role: "user", content: message || "Sag Hallo." },
     ],
   });
 
-  const text = resp.output_text ?? "";
-  return new Response(JSON.stringify({ text }), {
-    headers: { "content-type": "application/json" },
+  return new Response(stream.toReadableStream(), {
+    headers: {
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
+      "Connection": "keep-alive",
+      "X-Accel-Buffering": "no",
+    },
   });
 }
