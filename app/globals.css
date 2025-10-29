@@ -34,3 +34,33 @@ body { background: var(--bg); color: var(--brand); font-family: inter, system-ui
 .container-max {
   max-width: 1100px;
 }
+
+/* === Aki: animated dark blue/green gradient background === */
+.aki-gradient {
+  background:
+    radial-gradient(75% 55% at 12% 10%, #0b2545 0%, rgba(11,37,69,0) 60%),
+    radial-gradient(60% 65% at 88% 20%, #0a3d2e 0%, rgba(10,61,46,0) 60%),
+    linear-gradient(120deg, #0b1e2d 0%, #0a2a2a 50%, #0b1e2d 100%);
+  background-size: 200% 200%;
+}
+
+@keyframes aki-gradient-move {
+  0%, 100% { background-position:   0% 50%, 100% 50%,   0% 50%; }
+  50%      { background-position: 100% 50%,   0% 50%, 100% 50%; }
+}
+
+/* Animation nur, wenn Nutzer es erlaubt (A11y) */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-aki-gradient {
+    animation: aki-gradient-move 30s ease-in-out infinite;
+  }
+}
+
+/* Optional: leichte Körnung für Tiefe (dezenter Film) */
+.aki-grain {
+  pointer-events: none;
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .25;
+  mix-blend-mode: overlay;
+}
