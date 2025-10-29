@@ -1,4 +1,3 @@
-cat > app/page.tsx <<'EOF'
 import Chat from "@/components/chat/Chat";
 
 export default function Home() {
@@ -15,4 +14,3 @@ export default function Home() {
     </main>
   );
 }
-EOF
