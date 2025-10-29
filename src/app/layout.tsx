@@ -21,6 +21,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-dvh text-brand-800 antialiased">
         <div className="fixed inset-0 -z-10 aki-gradient animate-aki-gradient" aria-hidden="true"></div>
         <div className="aki-grain" aria-hidden="true"></div>
+        <div className="fixed inset-0 -z-10 aki-gradient animate-aki-gradient" aria-hidden="true"></div>
+        <div className="aki-grain" aria-hidden="true"></div>
         <header className="sticky top-0 z-40 border-b border-transparent bg-white/70 backdrop-blur-sm">
           <div className="mx-auto container-max px-6 h-16 flex items-center justify-between">
             <a href="/" className="inline-flex items-center gap-3">
