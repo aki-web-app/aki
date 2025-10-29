@@ -1,14 +1,30 @@
 # 1) Abhängigkeiten
 FROM node:20-alpine AS deps
+
+# Build-Arg damit DATABASE_URL während des Builds verfügbar ist (für prisma generate)
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
+
+# Paket-Metadaten kopieren und installieren
 COPY package.json package-lock.json* ./
 RUN npm ci
+
+# Prisma-Client generieren, falls DATABASE_URL gesetzt ist (robust)
+RUN if [ -n "$DATABASE_URL" ]; then \
+      npx prisma generate; \
+    else \
+      echo "Skipping prisma generate (no DATABASE_URL)"; \
+    fi
 
 # 2) Build
 FROM node:20-alpine AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# node_modules vom deps-stage übernehmen (inkl. @prisma/client, falls generiert)
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
