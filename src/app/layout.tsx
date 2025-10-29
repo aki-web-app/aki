@@ -1,4 +1,4 @@
-// /srv/aki/app/layout.tsx
+// src/app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -19,10 +19,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de" className={inter.variable}>
       <body className="min-h-dvh text-brand-800 antialiased">
-        <div className="fixed inset-0 -z-10 aki-gradient animate-aki-gradient" aria-hidden="true"></div>
-        <div className="aki-grain" aria-hidden="true"></div>
-        <div className="fixed inset-0 -z-10 aki-gradient animate-aki-gradient" aria-hidden="true"></div>
-        <div className="aki-grain" aria-hidden="true"></div>
+        {/* Direkt im BODY: expliziter Stylesheet-Link, funktioniert zuverlässig */}
+        <link rel="stylesheet" href="/_next/static/css/aki.css" />
+
+        {/* Animated Background */}
+        <div className="fixed inset-0 -z-10 aki-gradient animate-aki-gradient" aria-hidden="true" />
+        <div className="aki-grain" aria-hidden="true" />
+
+        {/* Header */}
         <header className="sticky top-0 z-40 border-b border-transparent bg-white/70 backdrop-blur-sm">
           <div className="mx-auto container-max px-6 h-16 flex items-center justify-between">
             <a href="/" className="inline-flex items-center gap-3">
@@ -37,8 +41,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
 
+        {/* Main */}
         <main className="mx-auto container-max px-6 py-10">{children}</main>
 
+        {/* Footer */}
         <footer className="mt-16 border-t bg-white">
           <div className="mx-auto container-max px-6 py-8 text-sm text-brand-600">
             © {new Date().getFullYear()} Leben mit Paranoia – Aki. Alle Rechte vorbehalten.
