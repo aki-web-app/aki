@@ -10,13 +10,18 @@ WORKDIR /app
 
 # Paket-Metadaten kopieren und installieren
 COPY package.json package-lock.json* ./
+
+# Prisma-Artefakte kopieren, damit prisma generate die schema-Datei findet
+COPY prisma ./prisma
+COPY prisma.config.ts ./
+
 RUN npm ci
 
-# Prisma-Client generieren, falls DATABASE_URL gesetzt ist (robust)
-RUN if [ -n "$DATABASE_URL" ]; then \
-      npx prisma generate; \
+# Prisma-Client generieren, falls DATABASE_URL gesetzt ist (robust) und Schema vorhanden ist
+RUN if [ -n "$DATABASE_URL" ] && [ -f "./prisma/schema.prisma" ]; then \
+      npx prisma generate --schema=prisma/schema.prisma; \
     else \
-      echo "Skipping prisma generate (no DATABASE_URL)"; \
+      echo "Skipping prisma generate (no DATABASE_URL or prisma/schema.prisma missing)"; \
     fi
 
 # 2) Build
