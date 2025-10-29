@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Better focus ring */
+:where(button, a, textarea, input, [role="button"], [tabindex])
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(124,77,255,.35);
+}
+
+/* subtle page background */
+body { background: #f9fafb; }
+
+/* thin scrollbar (nur modernes UI, optional) */
+*::-webkit-scrollbar { height: 10px; width: 10px; }
+*::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 8px; }
+*::-webkit-scrollbar-thumb:hover { background: #b6bcc6; }

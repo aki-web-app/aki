@@ -16,5 +16,5 @@ app.leben-mit-paranoia.de {
     Content-Security-Policy "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openai.com; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
   }
 
-  reverse_proxy 172.17.0.1:3000
+  reverse_proxy web:3000
 }
