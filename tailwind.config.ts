@@ -1,20 +1,35 @@
-import type { Config } from "tailwindcss";
-
+// tailwind.config.ts (Ergänzung / replace extend)
+import type { Config } from 'tailwindcss';
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#1a1a1d",
-          50:"#f6f6f7",100:"#e7e7ea",200:"#cfd0d6",300:"#b0b1b9",400:"#8b8d97",
-          500:"#6d6f78",600:"#4c4d54",700:"#34343a",800:"#1f2023",900:"#141416",
+          DEFAULT: "#1f1f23",
+          50: "#f8f8f9", 100:"#f1f1f3", 200:"#e0e0e4", 300:"#c6c7cc", 400:"#a6a7ad",
+          500:"#7f8086", 600:"#56575b", 700:"#343437", 800:"#1f1f23", 900:"#0f0f11"
         },
-        accent: { DEFAULT:"#7c4dff", 600:"#6c3fff", 700:"#5a33e6" },
+        accent: {
+          DEFAULT: "#7c5bff",
+          400: "#9a7bff", 600: "#6c3fff", 700: "#5a33e6"
+        },
+        muted: {
+          DEFAULT: "#6b7280"
+        }
       },
-      boxShadow: { subtle: "0 1px 2px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04)" },
-      borderRadius: { xl:"0.75rem", "2xl":"1rem" },
-    },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+      },
+      borderRadius: {
+        lg: "0.75rem",
+        xl: "1rem",
+        "2xl": "1.5rem",
+      },
+      boxShadow: {
+        soft: "0 6px 18px rgba(16,24,40,0.06)",
+      },
+    }
   },
   plugins: [],
 };
