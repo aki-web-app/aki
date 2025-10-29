@@ -1,4 +1,4 @@
-import Hero from "@/src/components/Hero";
+import Hero from "@/components/Hero";
 import Chat from "@/components/chat/Chat";
 
 export default function Home() {
