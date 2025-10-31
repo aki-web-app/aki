@@ -1,7 +1,1 @@
-/** Next.js + Tailwind v3 */
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-};
+module.exports = { plugins: { tailwindcss: {}, autoprefixer: {} } };
