@@ -2,41 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design-Token & Basis */
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Pastell-Background für Aki */
+:root{
+  --aki-grad-1:#eef2ff;
+  --aki-grad-2:#fae8ff;
+  --aki-grad-3:#ecfeff;
 }
-@media (prefers-color-scheme: dark) {
-  :root { --background: #0a0a0a; --foreground: #ededed; }
-}
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Aki Hintergrund (dunkelblau/dunkelgrün, sanft animiert) */
 .aki-gradient{
   background:
-    radial-gradient(75% 55% at 12% 10%, #0b2545 0, rgba(11,37,69,0) 60%),
-    radial-gradient(60% 65% at 88% 20%, #0a3d2e 0, rgba(10,61,46,0) 60%),
-    linear-gradient(120deg, #0b1e2d, #0a2a2a 50%, #0b1e2d);
-  background-size: 200% 200%;
+    radial-gradient(800px 400px at 10% 10%, var(--aki-grad-1), transparent 60%),
+    radial-gradient(800px 400px at 90% 20%, var(--aki-grad-2), transparent 60%),
+    radial-gradient(800px 400px at 50% 90%, var(--aki-grad-3), transparent 60%),
+    #ffffff;
+  background-size:200% 200%;
 }
-@keyframes aki-gradient-move {
-  0%,100% { background-position: 0% 50%, 100% 50%, 0% 50% }
-  50%     { background-position: 100% 50%, 0% 50%, 100% 50% }
+@keyframes akiGradientShift{
+  0%,100%{ background-position:0% 0%, 100% 0%, 50% 100%; }
+  50%    { background-position:100% 100%, 0% 100%, 50% 0%; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .animate-aki-gradient { animation: aki-gradient-move 30s ease-in-out infinite; }
-}
+.animate-aki-gradient{ animation: akiGradientShift 18s ease-in-out infinite; }
 
-/* feines Filmkorn-Overlay */
-.aki-grain{
-  pointer-events:none; position:absolute; inset:0; z-index:-9; opacity:.2; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='a'%3E%3CfeTurbulence baseFrequency='.65' numOctaves='2' stitchTiles='stitch' type='fractalNoise'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA slope='.06' type='linear'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Cpath d='M0 0h128v128H0z' filter='url(%23a)'/%3E%3C/svg%3E");
+/* kleine Schatten-Utility wie im Chat */
+.shadow-subtle{
+  box-shadow:0 1px 2px rgba(16,24,40,.05),0 1px 1px rgba(16,24,40,.04);
 }
-
-/* Hilfsklassen */
-.container-max { max-width: 72rem; }

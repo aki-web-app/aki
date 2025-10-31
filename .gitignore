@@ -28,3 +28,13 @@ prisma/*.db-journal
 *.tar
 *.tar.gz
 *.tgz
+# Build-/Runtime-Artefakte
+.next/
+node_modules/
+public/_next/
+.env
+.env.*
+/dist/
+pnpm-lock.yaml
+# lass unsere statische CSS drin:
+!public/aki.css
