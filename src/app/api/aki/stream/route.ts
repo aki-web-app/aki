@@ -1,4 +1,5 @@
 // app/api/aki/stream/route.ts
+import { rateLimit, withRateLimitHeaders } from "@/lib/rate-limit";
 import OpenAI from "openai";
 
 export const runtime = "nodejs";

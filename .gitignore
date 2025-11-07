@@ -38,3 +38,13 @@ public/_next/
 pnpm-lock.yaml
 # lass unsere statische CSS drin:
 !public/aki.css
+
+# Aki (hygiene)
+.env
+.env.*.local
+node_modules/
+.next/
+out/
+build/
+*.log
+public/aki.css

@@ -1,3 +1,4 @@
+import { rateLimit, withRateLimitHeaders } from "@/lib/rate-limit";
 import OpenAI from "openai";
 
 export const runtime = "nodejs";

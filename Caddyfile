@@ -1,20 +1,26 @@
-{
-  # Optional: E-Mail für ACME, bessere Rate-Limits
-  email admin@leben-mit-paranoia.com
-}
-
 app.leben-mit-paranoia.de {
   encode zstd gzip
 
-  # Security Headers (Start konservativ; feintunen wir später)
+  reverse_proxy http://172.17.0.1:3000 {
+    header_up X-Forwarded-Proto {scheme}
+    header_up X-Forwarded-For {remote_host}
+  }
+
+  # Security-Header
   header {
     Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
     X-Content-Type-Options "nosniff"
     Referrer-Policy "strict-origin-when-cross-origin"
     Permissions-Policy "camera=(), microphone=(), geolocation=()"
-    # Minimale CSP, kompatibel mit Next.js + OpenAI API Calls (wird später gehärtet)
-    Content-Security-Policy "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openai.com; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+    # CSP (Report-Only): wir erlauben alles, was du jetzt schon nutzt,
+    # und sammeln Verstöße zum späteren "Enforce".
+    # Hinweis: 'unsafe-inline' ist vorerst an, um nichts zu brechen.
+    Content-Security-Policy-Report-Only "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openai.com; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; report-uri /api/csp-report"
   }
 
-  reverse_proxy 172.17.0.1:3000
+  # Request-Body Limit (Basic-Härtung, 10 MB)
+  request_body {
+    max_size 10MB
+  }
 }

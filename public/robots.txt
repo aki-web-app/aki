@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://app.leben-mit-paranoia.de/sitemap.xml
