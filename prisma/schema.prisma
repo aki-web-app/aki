@@ -9,8 +9,39 @@ datasource db {
 }
 
 model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String?
+  name            String?
+  emailVerifiedAt DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Gegenrelationen für AuthToken und Session
+  authTokens AuthToken[]
+  sessions   Session[]
+}
+
+model AuthToken {
   id        String   @id @default(cuid())
-  email     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String // "VERIFY" | "RESET"
+  token     String   @unique
+  expiresAt DateTime
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([type])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
