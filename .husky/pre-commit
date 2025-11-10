@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Prüfe NUR STAGED Dateien (Added/Changed/Renamed/etc.)
+files="$(git diff --cached --name-only --diff-filter=ACMRT)"
+[ -z "$files" ] && exit 0
+
+# Block-Regel: .env*, Key/Cert usw., ABER .env.example explizit erlauben
+blocked="$(echo "$files" \
+  | grep -E '(^|/)\.env($|\.|/)|\.(pem|key|crt|p12|keystore)$' \
+  | grep -v -E '(^|/)\.env\.example$' || true)"
+
+if [ -n "$blocked" ]; then
+  echo '❌ Commit blockiert: Env/Key-Dateien dürfen nicht ins Repo.'
+  echo "$blocked"
+  exit 1
+fi
+
+exit 0

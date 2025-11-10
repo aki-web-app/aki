@@ -1,50 +1,19 @@
-# Builds / Caches
+node_modules/
 .next/
 out/
 dist/
 coverage/
+*.log
 npm-debug.log*
-pnpm-debug.log*
 yarn-debug.log*
-yarn-error.log*
-.vscode/
-.DS_Store
-
-# Dependencies
-node_modules/
+pnpm-debug.log*
 
 # Env & Secrets
 .env
-.env.local
-.env.production
-.env.development
-
-# Prisma
-prisma/dev.db
-prisma/*.db-journal
-
-# Misc
-*.zip
-*.tar
-*.tar.gz
-*.tgz
-# Build-/Runtime-Artefakte
-.next/
-node_modules/
-public/_next/
-.env
 .env.*
-/dist/
-pnpm-lock.yaml
-# lass unsere statische CSS drin:
-!public/aki.css
-
-# Aki (hygiene)
-.env
-.env.*.local
-node_modules/
-.next/
-out/
-build/
-*.log
-public/aki.css
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.keystore
